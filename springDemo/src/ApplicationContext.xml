@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="UserService" class="com.spring.rumen.UserServiceImpl">
+        <!--set方法方式在UserServiceImpl类中注入属性 -->
+        <property name="userDao" ref="UserDao"/>
+        <property name="user" ref="User1"/>
+    </bean>
+    <bean id="UserDao" class="com.spring.rumen.UserDaoImpl"/>
+
+    <!--构造方法注入属性-->
+    <bean id="User1" class="com.spring.rumen.User">
+        <constructor-arg name="name" value="涵涵"/>
+        <constructor-arg name="password" value="123"/>
+    </bean>
+    <!--SpEL注入 语法 #{}-->
+    <bean id="User2" class="com.spring.rumen.User">
+        <constructor-arg name="name" value="#{'宝宝'}"/>
+        <constructor-arg name="password" value="#{'321'}"/>
+    </bean>
+
+</beans>
