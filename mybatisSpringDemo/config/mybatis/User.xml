@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <!--parameterType 入参 需要输入的类型
+        resultType 返回值 返回查找的类型
+    -->
+    <select id="getUserById" parameterType="int" resultType="com.mybatis.pojo.User">
+        select * from user where user_id=#{id}
+    </select>
+    <select id="getUserByName" parameterType="String" resultType="com.mybatis.pojo.User">
+        SELECT * from user WHERE username LIKE '%${value}%'
+    </select>
+    <insert id="insertUser" parameterType="com.mybatis.pojo.User">
+        INSERT into user(username, user_password, user_age) values (#{username},#{user_password},#{user_age})
+    </insert>
+    <update id="updateUser" parameterType="com.mybatis.pojo.User">
+        UPDATE user set username =#{username} where user_id=#{user_id}
+    </update>
+    <delete id="deleteUser" parameterType="int">
+        delete from user where user_id=#{id}
+    </delete>
+</mapper>
