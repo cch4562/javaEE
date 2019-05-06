@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.LinkmanMapper">
+    <resultMap id="linkmanMap" type="Linkman">
+        <id property="link_id" column="link_id"/>
+        <result property="link_name" column="link_name"/>
+        <result property="link_phone" column="link_phone"/>
+        <result property="sex" column="link_sex"/>
+
+        <!--配置一对一属性-->
+        <association property="user" javaType="user">
+            <id property="user_id" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="user_password" column="user_password"/>
+            <result property="user_age" column="user_age"/>
+        </association>
+    </resultMap>
+    
+    <select id="linkmanToUser" resultMap="linkmanMap">
+        SELECT
+               l.link_id,l.link_name,l.link_phone,l.link_sex,u.username,u.user_age,u.user_password
+        FROM linkman l left join user u
+          on l.link_user_id=u.user_id
+    </select>
+</mapper>
